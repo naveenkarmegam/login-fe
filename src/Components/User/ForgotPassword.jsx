@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Icons/Logo";
 import { useFormik } from "formik";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const formik = useFormik({
@@ -20,9 +21,15 @@ const ForgotPassword = () => {
       }
       return errors;
     },
-    onSubmit: (values, reset) => {
-      console.log(values);
-      reset.resetForm();
+    onSubmit: async(values) => {
+      try {
+        const response = await axios.post(`${config.userApi}/forgot-password`,values)
+        formik.resetForm()
+      } catch (error) {
+        console.error('Error during registration:', error);
+         
+        
+      }
     },
   });
   return (

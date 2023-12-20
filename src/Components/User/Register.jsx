@@ -123,7 +123,7 @@ const Register = () => {
                         className= {`form-control form-control-user ${ formik.touched.password && 
                           formik.errors.password ? "is-invalid" : ''}`}
                         id="password"
-                        placeholder="Last Name"
+                        placeholder="password"
                         name="password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
@@ -143,7 +143,7 @@ const Register = () => {
                         className= {`form-control form-control-user ${ formik.touched.cpassword && 
                           formik.errors.cpassword ? "is-invalid" : ''}`}
                         id="cpassword"
-                        placeholder="Last Name"
+                        placeholder="password"
                         name="cpassword"
                         value={formik.values.cpassword}
                         onChange={formik.handleChange}
