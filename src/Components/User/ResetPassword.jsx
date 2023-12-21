@@ -34,7 +34,7 @@ const ResetPassword = () => {
                     values
                 );
                 navigate('/')
-                toast.success('your passsword was changed successfully changed')
+                toast.success('your passsword was successfully changed')
                 formik.resetForm();
             } catch (error) {
                 console.error("Error during password reset:", error);
