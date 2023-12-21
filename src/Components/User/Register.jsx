@@ -1,6 +1,6 @@
 import { registerValidationSchema } from "./schema/validationSchema";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../Icons/Logo";
 import { useFormik } from "formik";
 import axios from "axios";
@@ -8,10 +8,11 @@ import { toast } from "react-toastify";
 import { config } from "../../config/config";
 
 const Register = () => {
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       cpassword: "",
@@ -25,6 +26,7 @@ const Register = () => {
             position: 'top-center',
           });
         }
+        navigate('/')
         formik.resetForm()
       } catch (error) {
         console.error('Error during registration:', error);
@@ -58,19 +60,19 @@ const Register = () => {
                     <div className="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="text"
-                        className= {`form-control form-control-user ${ formik.touched.firstname && 
-                          formik.errors.firstname ? "is-invalid" : ''}`}
-                        id="firstname"
+                        className= {`form-control form-control-user ${ formik.touched.firstName && 
+                          formik.errors.firstName ? "is-invalid" : ''}`}
+                        id="firstName"
                         placeholder="First Name"
-                        name="firstname"
-                        value={formik.values.firstname}
+                        name="firstName"
+                        value={formik.values.firstName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
                       {
-                        formik.touched.firstname && formik.errors.firstname && (
+                        formik.touched.firstName && formik.errors.firstName && (
                           <span className="d-block ms-3 text-danger small invalid-feedback">
-                        {formik.errors.firstname}
+                        {formik.errors.firstName}
                       </span>
                         )
                       }
@@ -78,19 +80,19 @@ const Register = () => {
                     <div className="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="text"
-                        className= {`form-control form-control-user ${ formik.touched.lastname && 
-                          formik.errors.lastname ? "is-invalid" : ''}`}
-                        id="lastname"
+                        className= {`form-control form-control-user ${ formik.touched.lastName && 
+                          formik.errors.lastName ? "is-invalid" : ''}`}
+                        id="lastName"
                         placeholder="Last Name"
-                        name="lastname"
-                        value={formik.values.lastname}
+                        name="lastName"
+                        value={formik.values.lastName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
                       {
-                        formik.touched.lastname && formik.errors.lastname && (
+                        formik.touched.lastName && formik.errors.lastName && (
                           <span className="d-block ms-3 text-danger small invalid-feedback">
-                        {formik.errors.lastname}
+                        {formik.errors.lastName}
                       </span>
                         )
                       }
@@ -169,6 +171,9 @@ const Register = () => {
                 <hr />
                 <div className="text-center">
                   <Link className="small" to={"/forgot-password"}>
+                    Forgot Password?
+                  </Link>
+                  <Link className="small" to={"/reset-password"}>
                     Forgot Password?
                   </Link>
                 </div>

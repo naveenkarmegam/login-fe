@@ -2,10 +2,10 @@ import * as Yup from "yup";
 
 
 export const registerValidationSchema = Yup.object().shape({
-  firstname: Yup.string().required('* Required')
+  firstName: Yup.string().required('* Required')
     .matches(/^[A-Za-z]+$/, 'A first name must be in letters'),
 
-  lastname: Yup.string().required('* Required')
+  lastName: Yup.string().required('* Required')
   .matches(/^[A-Za-z]+$/, 'A last name must be in letters'),
   email: Yup.string().required('* required').matches(
     /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/,
