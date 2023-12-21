@@ -8,6 +8,7 @@ import { config } from "../../config/config";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setShowPassword } from "../../features/UserReducer";
 import { toast } from "react-toastify";
+import Loading from "./Loading";
 
 const ResetPassword = () => {
     const params = useParams();
@@ -124,7 +125,9 @@ const ResetPassword = () => {
                                             type="submit"
                                             className="btn btn-primary btn-user btn-block"
                                         >
-                                            Reset Password
+                                         {
+                                            loading? <Loading /> : "Reset Your Password"
+                                         }
                                         </button>
                                     </form>
                                 </section>

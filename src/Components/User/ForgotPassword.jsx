@@ -30,7 +30,7 @@ const ForgotPassword = () => {
         );
         if (response.status === 200) {
           
-          toast.success(response.data.message)
+          toast.success(response.data.messagen+"Kindly check you mail")
           navigate('/')
           formik.resetForm();
         }
