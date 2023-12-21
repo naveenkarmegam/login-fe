@@ -5,10 +5,15 @@ import { useFormik } from "formik";
 import * as Yup from "yup";  // Import Yup for validation
 import axios from "axios";
 import { config } from "../../config/config";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setShowPassword } from "../../features/UserReducer";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
     const params = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { showPassword, loading } = useSelector(state => state.users)
+    const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
             password: "",
@@ -22,15 +27,19 @@ const ResetPassword = () => {
         }),
         onSubmit: async (values) => {
             try {
+                dispatch(setLoading(true))
                 const response = await axios.post(
                     `${config.userApi}/reset-password/${params.token}`,
                     values
                 );
                 navigate('/')
+                toast.success('your passsword was changed successfully changed')
                 formik.resetForm();
             } catch (error) {
                 console.error("Error during password reset:", error);
                 formik.setErrors({ general: error });
+            }finally{
+                dispatch(setLoading(false))
             }
         },
     });
@@ -61,7 +70,7 @@ const ResetPassword = () => {
                                         )}
                                         <fieldset className="form-group">
                                             <input
-                                                type="password"
+                                                type={showPassword ? 'text' : 'password'}
                                                 className={`form-control form-control-user ${formik.touched.password &&
                                                     formik.errors.password ? "is-invalid" : ""
                                                     }`}
@@ -79,7 +88,7 @@ const ResetPassword = () => {
                                         </fieldset>
                                         <fieldset className="form-group">
                                             <input
-                                                type="password"
+                                                type={showPassword ? 'text' : 'password'}
                                                 className={`form-control form-control-user ${formik.touched.confirmPassword &&
                                                     formik.errors.confirmPassword ? "is-invalid" : ""
                                                     }`}
@@ -96,6 +105,21 @@ const ResetPassword = () => {
                                                     formik.errors.confirmPassword}
                                             </span>
                                         </fieldset>
+                                        <section className="custom-control custom-checkbox small my-3">
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="showPassword"
+                                                name="showPassword"
+                                                onChange={() => dispatch(setShowPassword(!showPassword))}
+                                            />
+                                            <label
+                                                className="custom-control-label"
+                                                htmlFor="showPassword"
+                                            >
+                                                show password
+                                            </label>
+                                        </section>
                                         <button
                                             type="submit"
                                             className="btn btn-primary btn-user btn-block"

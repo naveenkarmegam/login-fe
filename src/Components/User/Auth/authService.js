@@ -5,16 +5,12 @@ import { config } from "../../../config/config";
 export const login = async (value) => {
   try {
     const response = await axios.post(`${config.userApi}/login`,value);
-   
+   console.log(response)
     if (response.status===200) {
      localStorage.setItem("token",response.data.token)
-      return true;
-    } else {
-      throw new Error("Invalid username or password");
-    }
+    } 
   } catch (error) {
-    console.error("Login failed:", error.message);
-    throw new Error(error.message);
+    throw new Error(error.response.data.message);
   }
 };
 

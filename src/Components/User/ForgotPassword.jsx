@@ -3,11 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../Icons/Logo";
 import { useFormik } from "formik";
 import axios from "axios";
-import * as Yup from "yup";  // Import Yup for validation
+import * as Yup from "yup";  
 import { config } from "../../config/config";
+import Loading from "./Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../features/UserReducer";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const navigate = useNavigate()
+  const {loading} = useSelector(state=>state.users)
+  const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -17,19 +23,24 @@ const ForgotPassword = () => {
     }),
     onSubmit: async (values) => {
       try {
+        dispatch(setLoading(true))
         const response = await axios.post(
           `${config.userApi}/forget-password`,
           values
         );
         if (response.status === 200) {
+          
+          toast.success(response.data.message)
           navigate('/')
           formik.resetForm();
         }
        
       } catch (error) {
-        console.error("Error during registration:", error);
-        console.log(error);
-        formik.setErrors({ general: error });
+        const message = error.response.data.message
+        console.error("Error during registration:",message);
+        formik.setErrors({ general: message });
+      }finally{
+        dispatch(setLoading(false));
       }
     },
   });
@@ -60,7 +71,7 @@ const ForgotPassword = () => {
                   <form className="user" onSubmit={formik.handleSubmit}>
                   {formik.errors.general && (
                       <section className="alert alert-danger" role="alert">
-                        {formik.errors.general.message}
+                        {formik.errors.general}
                       </section>
                     )}
                     <fieldset className="form-group">
@@ -85,7 +96,9 @@ const ForgotPassword = () => {
                       type="submit"
                       className="btn btn-primary btn-user btn-block"
                     >
-                      Reset Password
+                      {
+                        loading ? <Loading /> : 'Reset Password'
+                      }
                     </button>
                   </form>
                   <hr />

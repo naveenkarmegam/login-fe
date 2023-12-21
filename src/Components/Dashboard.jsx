@@ -2,13 +2,13 @@ import React from 'react'
 import Logo from './Icons/Logo'
 import { logout } from './User/Auth/authService';
 import { useNavigate } from 'react-router-dom';
+import { number } from 'yup';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
     navigate("/");
-    window.location.href = "/";
   }
   return (
     <article className="container">
@@ -17,7 +17,7 @@ const Dashboard = () => {
           <section className="card o-hidden border-0 shadow-lg my-5">
             <main className="card-body p-0">
               <section className="row">
-                <figure className="col-lg-6 m-0 d-none d-lg-block bg-login-image"></figure>
+               
                 <section className="col-lg-6 p-5">
                   <hgroup className="d-flex justify-content-center user-heading">
                     <Logo width={60} height={60} className="me-3 fill-orange" />
@@ -29,6 +29,18 @@ const Dashboard = () => {
                       Welcome Come Back!
                     </h1>
                   </header>
+                  <p>
+                    <code>
+                      {
+                        `let number = 20
+                        if(number & 1){
+                          console.log("It is odd number")
+                        }else{
+                          console.log("It is even number")
+                        }`
+                      }
+                    </code>
+                  </p>
 
                   <button
                     className="btn btn-primary btn-user btn-block"

@@ -6,8 +6,13 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { config } from "../../config/config";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setShowPassword } from "../../features/UserReducer";
+import Loading from "./Loading";
 
 const Register = () => {
+  const {showPassword,loading}= useSelector(state=>state.users);
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
@@ -20,6 +25,7 @@ const Register = () => {
     validationSchema: registerValidationSchema,
     onSubmit: async(values) => {
       try {
+        dispatch(setLoading(true))
         const response = await axios.post(`${config.userApi}/register`,values)
         if(response.status===201){
           toast.success('Registration Successfully done 😃!', {
@@ -33,17 +39,15 @@ const Register = () => {
         toast.error('Error during registration. Please try again.', {
           position: 'top-center',
         });
+      }finally{
+        dispatch(setLoading(false))
       }
     },
   });
-  const handleClick=(e)=>{
-    console.log(e)
-  }
 
   return (
   
     <div className="container">
-      <button onClick={(e)=>handleClick(e)}>submit</button>
       <div className="card o-hidden border-0 shadow-lg my-5">
         <div className="card-body p-0">
           {/* Nested Row within Card Body */}
@@ -124,7 +128,7 @@ const Register = () => {
                   <div className="form-group row">
                     <div className="col-sm-6 mb-3 mb-sm-0">
                       <input
-                        type="password"
+                        type={showPassword?'text':'password'}
                         className= {`form-control form-control-user ${ formik.touched.password && 
                           formik.errors.password ? "is-invalid" : ''}`}
                         id="password"
@@ -144,7 +148,7 @@ const Register = () => {
                     </div>
                     <div className="col-sm-6">
                     <input
-                        type="password"
+                        type={showPassword?'text':'password'}
                         className= {`form-control form-control-user ${ formik.touched.cpassword && 
                           formik.errors.cpassword ? "is-invalid" : ''}`}
                         id="cpassword"
@@ -162,12 +166,31 @@ const Register = () => {
                         )
                       }
                     </div>
+                    
+                      <section className="custom-control custom-checkbox small text-center mt-3">
+                        <input
+                          type="checkbox"
+                          className="custom-control-input"
+                          id="showPassword"
+                          name="showPassword"
+                          onChange={()=>dispatch(setShowPassword(!showPassword))}
+                        />
+                        <label
+                          className="custom-control-label"
+                          htmlFor="showPassword"
+                        >
+                          show password
+                        </label>
+                      </section>
+                    
                   </div>
                   <button
                     className="btn btn-primary btn-user btn-block"
                     type="submit"
                   >
-                    Register Account
+                   {
+                    loading ? <Loading /> : ' Register Account'
+                   }
                   </button>
                   
                 </form>
