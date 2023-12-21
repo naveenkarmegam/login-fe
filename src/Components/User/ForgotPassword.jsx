@@ -28,6 +28,8 @@ const ForgotPassword = () => {
        
       } catch (error) {
         console.error("Error during registration:", error);
+        console.log(error);
+        formik.setErrors({ general: error });
       }
     },
   });
@@ -56,6 +58,11 @@ const ForgotPassword = () => {
                     </p>
                   </header>
                   <form className="user" onSubmit={formik.handleSubmit}>
+                  {formik.errors.general && (
+                      <section className="alert alert-danger" role="alert">
+                        {formik.errors.general.message}
+                      </section>
+                    )}
                     <fieldset className="form-group">
                       <input
                         type="text"

@@ -26,10 +26,11 @@ const ResetPassword = () => {
                     `${config.userApi}/reset-password/${params.token}`,
                     values
                 );
-               navigate('/')
+                navigate('/')
                 formik.resetForm();
             } catch (error) {
                 console.error("Error during password reset:", error);
+                formik.setErrors({ general: error });
             }
         },
     });
@@ -53,11 +54,16 @@ const ResetPassword = () => {
                                         <h1 className="h4 text-gray-900 mb-2">Reset Your Password</h1>
                                     </header>
                                     <form className="user" onSubmit={formik.handleSubmit}>
+                                        {formik.errors.general && (
+                                            <section className="alert alert-danger" role="alert">
+                                                {formik.errors.general.message}
+                                            </section>
+                                        )}
                                         <fieldset className="form-group">
                                             <input
                                                 type="password"
                                                 className={`form-control form-control-user ${formik.touched.password &&
-                                                        formik.errors.password ? "is-invalid" : ""
+                                                    formik.errors.password ? "is-invalid" : ""
                                                     }`}
                                                 id="exampleInputpassword"
                                                 aria-describedby="passwordHelp"
@@ -75,7 +81,7 @@ const ResetPassword = () => {
                                             <input
                                                 type="password"
                                                 className={`form-control form-control-user ${formik.touched.confirmPassword &&
-                                                        formik.errors.confirmPassword ? "is-invalid" : ""
+                                                    formik.errors.confirmPassword ? "is-invalid" : ""
                                                     }`}
                                                 id="confirmPassword"
                                                 aria-describedby="passwordHelp"

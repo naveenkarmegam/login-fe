@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../Icons/Logo";
 import { useFormik } from "formik";
-
 import { loginValidationSchema } from "./schema/validationSchema";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import "./style/user.css";
@@ -24,8 +23,7 @@ const Login = () => {
       } catch (error) {
         console.log(error);
         formik.setErrors({ general: error });
-      }h
-      
+      }
     },
   });
   React.useEffect(() => {

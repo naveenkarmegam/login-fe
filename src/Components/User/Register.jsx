@@ -33,14 +33,17 @@ const Register = () => {
         toast.error('Error during registration. Please try again.', {
           position: 'top-center',
         });
-        
       }
     },
   });
+  const handleClick=(e)=>{
+    console.log(e)
+  }
 
   return (
   
     <div className="container">
+      <button onClick={(e)=>handleClick(e)}>submit</button>
       <div className="card o-hidden border-0 shadow-lg my-5">
         <div className="card-body p-0">
           {/* Nested Row within Card Body */}
@@ -171,9 +174,6 @@ const Register = () => {
                 <hr />
                 <div className="text-center">
                   <Link className="small" to={"/forgot-password"}>
-                    Forgot Password?
-                  </Link>
-                  <Link className="small" to={"/reset-password"}>
                     Forgot Password?
                   </Link>
                 </div>
