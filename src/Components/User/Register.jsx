@@ -28,14 +28,14 @@ const Register = () => {
         dispatch(setLoading(true))
         const response = await axios.post(`${config.userApi}/register`,values)
         if(response.status===201){
-          toast.success('Registration Successfully done 😃!', {
+          toast.success(response.data.message, {
             position: 'top-center',
           });
         }
         navigate('/')
         formik.resetForm()
       } catch (error) {
-        console.error('Error during registration:', error);
+        console.error('Error during registration:',response.data.message);
         toast.error('Error during registration. Please try again.', {
           position: 'top-center',
         });

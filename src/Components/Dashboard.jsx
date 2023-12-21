@@ -16,9 +16,9 @@ const Dashboard = () => {
         <div className="col-xl-10 col-lg-12 col-md-9">
           <section className="card o-hidden border-0 shadow-lg my-5">
             <main className="card-body p-0">
-              <section className="row">
-               
-                <section className="col-lg-6 p-5">
+              <section className="row justify-content-center">
+
+                <section className="col-lg-12 p-5">
                   <hgroup className="d-flex justify-content-center user-heading">
                     <Logo width={60} height={60} className="me-3 fill-orange" />
                     <h1 className="text-center  h1">ADUDU</h1>
@@ -29,26 +29,25 @@ const Dashboard = () => {
                       Welcome Come Back!
                     </h1>
                   </header>
-                  <p>
+                  <pre className="d-flex justify-content-center user-heading">
                     <code>
-                      {
-                        `let number = 20
-                        if(number & 1){
-                          console.log("It is odd number")
-                        }else{
-                          console.log("It is even number")
-                        }`
-                      }
+                      import time from "universe"; {'\n'}
+                      time.past(() =&gt;{`{`} {'\n'}
+                      
+                      {'  '}{`setInterval(() => {`}{'\n'}
+                      {'    '}{`console.log('don't waste the chance')`}{'}'}{'\n'}
+                      {'  '}{`,5000)`}
+                      {'\n'}{`}`})
                     </code>
-                  </p>
-
+                  </pre>
+                  <div className="d-flex justify-content-center user-heading">
                   <button
-                    className="btn btn-primary btn-user btn-block"
+                    className="btn btn-primary btn-user btn-block col-lg-4"
                     type="submit"
                     onClick={handleLogout}
                   >
                     Logout
-                  </button>
+                  </button></div>
 
                 </section>
               </section>

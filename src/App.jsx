@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import Dashboard from "./Components/Dashboard";
 import { PrivateRoute } from "./Components/User/Auth/ProtectedRoute";
 import ResetPassword from "./Components/User/ResetPassword";
+import PageNotFound from "./Components/PageNotFound";
 
 function App() {
   return (
@@ -16,11 +17,12 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Route>
+        <Route path="*" element={<PageNotFound />}/>
         </Routes>
         <ToastContainer />
       </Router>
