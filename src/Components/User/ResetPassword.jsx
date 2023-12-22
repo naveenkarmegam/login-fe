@@ -39,7 +39,7 @@ const ResetPassword = () => {
             } catch (error) {
                 console.error("Error during password reset:", error);
                 formik.setErrors({ general: error });
-            }finally{
+            } finally {
                 dispatch(setLoading(false))
             }
         },
@@ -83,9 +83,13 @@ const ResetPassword = () => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                             />
-                                            <span className="d-block ms-3 text-danger small">
-                                                {formik.touched.password && formik.errors.password}
-                                            </span>
+                                            {
+                                                formik.touched.password && formik.errors.password && (
+                                                    <span className="d-block ms-3 text-danger small invalid-feedback">
+                                                        {formik.errors.password}
+                                                    </span>
+                                                )
+                                            }
                                         </fieldset>
                                         <fieldset className="form-group">
                                             <input
@@ -101,10 +105,13 @@ const ResetPassword = () => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                             />
-                                            <span className="d-block ms-3 text-danger small">
-                                                {formik.touched.confirmPassword &&
-                                                    formik.errors.confirmPassword}
-                                            </span>
+                                            {
+                                                formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                                                    <span className="d-block ms-3 text-danger small invalid-feedback">
+                                                        {formik.errors.confirmPassword}
+                                                    </span>
+                                                )
+                                            }
                                         </fieldset>
                                         <section className="custom-control custom-checkbox small my-3">
                                             <input
@@ -125,9 +132,9 @@ const ResetPassword = () => {
                                             type="submit"
                                             className="btn btn-primary btn-user btn-block"
                                         >
-                                         {
-                                            loading? <Loading /> : "Reset Your Password"
-                                         }
+                                            {
+                                                loading ? <Loading /> : "Reset Your Password"
+                                            }
                                         </button>
                                     </form>
                                 </section>

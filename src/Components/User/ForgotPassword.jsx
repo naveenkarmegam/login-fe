@@ -88,9 +88,13 @@ const ForgotPassword = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       />
-                      <span className="d-block ms-3 text-danger small">
-                        {formik.touched.email && formik.errors.email}
+                      {
+                        formik.touched.email && formik.errors.email && (
+                          <span className="d-block ms-3 text-danger small invalid-feedback">
+                        {formik.errors.email}
                       </span>
+                        )
+                      }
                     </fieldset>
                     <button
                       type="submit"
